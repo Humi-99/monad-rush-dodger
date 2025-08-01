@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Gas Fee Dodger Design System - Vaporwave/Synthwave Theme */
+
+@layer base {
+  :root {
+    /* Core vaporwave palette */
+    --background: 240 10% 8%;
+    --foreground: 315 100% 80%;
+
+    --card: 240 15% 12%;
+    --card-foreground: 315 100% 85%;
+
+    --popover: 240 15% 12%;
+    --popover-foreground: 315 100% 85%;
+
+    /* Neon primary (hot pink) */
+    --primary: 315 100% 60%;
+    --primary-foreground: 240 10% 5%;
+
+    /* Electric cyan */
+    --secondary: 185 100% 50%;
+    --secondary-foreground: 240 10% 5%;
+
+    /* Purple muted */
+    --muted: 260 30% 20%;
+    --muted-foreground: 260 20% 70%;
+
+    /* Neon accent (electric blue) */
+    --accent: 200 100% 55%;
+    --accent-foreground: 240 10% 5%;
+
+    /* Danger (red) */
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 240 10% 5%;
+
+    --border: 260 30% 25%;
+    --input: 260 30% 18%;
+    --ring: 315 100% 60%;
+
+    --radius: 0.5rem;
+
+    /* Game-specific colors */
+    --game-neon-pink: 315 100% 70%;
+    --game-neon-cyan: 185 100% 60%;
+    --game-neon-purple: 260 100% 65%;
+    --game-electric-blue: 200 100% 60%;
+    --game-warning: 45 100% 65%;
+    --game-danger: 0 100% 65%;
+    
+    /* Gradients */
+    --gradient-synthwave: linear-gradient(135deg, hsl(315 100% 60%), hsl(185 100% 50%), hsl(260 100% 65%));
+    --gradient-gas: linear-gradient(180deg, hsl(0 100% 60%), hsl(45 100% 65%));
+    --gradient-monad: linear-gradient(45deg, hsl(260 100% 65%), hsl(315 100% 70%));
+    
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsl(315 100% 60% / 0.5);
+    --glow-secondary: 0 0 20px hsl(185 100% 50% / 0.5);
+    --glow-accent: 0 0 20px hsl(200 100% 55% / 0.5);
+    
+    /* Animations */
+    --transition-neon: all 0.3s ease-in-out;
+    --pulse-duration: 2s;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Enhanced dark mode - already perfect for synthwave theme */
+    --background: 240 10% 3%;
+    --foreground: 315 100% 85%;
+
+    --card: 240 15% 8%;
+    --card-foreground: 315 100% 90%;
+
+    --popover: 240 15% 8%;
+    --popover-foreground: 315 100% 90%;
+
+    --primary: 315 100% 70%;
+    --primary-foreground: 240 10% 5%;
+
+    --secondary: 185 100% 60%;
+    --secondary-foreground: 240 10% 5%;
+
+    --muted: 260 30% 15%;
+    --muted-foreground: 260 20% 75%;
+
+    --accent: 200 100% 65%;
+    --accent-foreground: 240 10% 5%;
+
+    --destructive: 0 100% 70%;
+    --destructive-foreground: 240 10% 5%;
+
+    --border: 260 30% 20%;
+    --input: 260 30% 15%;
+    --ring: 315 100% 70%;
+
+    /* Game colors - enhanced for dark mode */
+    --game-neon-pink: 315 100% 75%;
+    --game-neon-cyan: 185 100% 70%;
+    --game-neon-purple: 260 100% 75%;
+    --game-electric-blue: 200 100% 70%;
+    --game-warning: 45 100% 70%;
+    --game-danger: 0 100% 70%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
