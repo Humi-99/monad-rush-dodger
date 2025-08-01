@@ -1,27 +1,21 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { GameCanvas } from '@/components/game/GameCanvas';
 import { GameStats } from '@/components/game/GameStats';
 import { Leaderboard } from '@/components/game/Leaderboard';
 import { GameNarrator } from '@/components/game/GameNarrator';
+import { NavBar } from '@/components/NavBar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useAuth } from '@/contexts/AuthContext';
 import synthwaveBg from '@/assets/synthwave-bg.jpg';
 
 const Index = () => {
-  const { user, signOut } = useAuth();
   const [gameEvents, setGameEvents] = useState<Array<{
     type: 'start' | 'hit' | 'collect' | 'levelUp' | 'gameOver';
     value?: number;
   }>>([{ type: 'start' }]);
 
   const [showStats, setShowStats] = useState(false);
-
-  const handleSignOut = async () => {
-    await signOut();
-  };
 
   // Mock stats - in real app this would come from local storage or blockchain
   const playerStats = {
@@ -45,13 +39,13 @@ const Index = () => {
       {/* Overlay for better contrast */}
       <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
       
+      {/* Navigation */}
+      <NavBar />
+      
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-6xl font-bold bg-gradient-to-r from-neon-pink via-neon-purple to-neon-cyan bg-clip-text text-transparent animate-neon-pulse mb-4">
-            GAS FEE DODGER
-          </h1>
           <p className="text-xl text-neon-cyan mb-2 animate-float">
             ⚡ Welcome to the MONad Multiverse ⚡
           </p>
@@ -83,23 +77,6 @@ const Index = () => {
               >
                 📊 Stats
               </Button>
-              
-              {user ? (
-                <div className="flex gap-4 items-center">
-                  <span className="text-neon-cyan text-sm">
-                    Welcome, {user.email?.split('@')[0]}!
-                  </span>
-                  <Button variant="cyber" size="lg" onClick={handleSignOut}>
-                    🚪 Sign Out
-                  </Button>
-                </div>
-              ) : (
-                <Link to="/auth">
-                  <Button variant="cyber" size="lg">
-                    🔗 Sign In / Connect Wallet
-                  </Button>
-                </Link>
-              )}
             </div>
           </div>
 
