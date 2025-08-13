@@ -139,21 +139,37 @@ const Index = () => {
         {/* Footer */}
         <div className="text-center mt-12 pt-8 border-t border-neon-purple/30">
           <p className="text-muted-foreground mb-4">
-            Built on <span className="text-neon-purple font-bold">Monad</span> • 
-            Powered by <span className="text-neon-cyan font-bold">React</span> • 
-            Styled with <span className="text-neon-pink font-bold">Tailwind</span>
+            Made by <span className="text-neon-cyan font-bold">humi</span>
           </p>
-          <div className="flex justify-center gap-4">
-            <Button variant="ghost" size="sm" className="text-neon-cyan hover:text-neon-cyan/80">
-              📚 Docs
+          <div className="flex justify-center gap-4 mb-4">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-neon-cyan hover:text-neon-cyan/80"
+              onClick={() => window.open('https://www.monad.xyz/privacy-policy', '_blank')}
+            >
+              🔒 Privacy Policy
             </Button>
-            <Button variant="ghost" size="sm" className="text-neon-pink hover:text-neon-pink/80">
-              💬 Discord
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-neon-pink hover:text-neon-pink/80"
+              onClick={() => window.open('https://twitter.com/Humis110', '_blank')}
+            >
+              🐦 @Humis110
             </Button>
-            <Button variant="ghost" size="sm" className="text-electric-blue hover:text-electric-blue/80">
-              🐦 Twitter
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-electric-blue hover:text-electric-blue/80"
+              onClick={() => window.open('https://discord.com/users/humi_999', '_blank')}
+            >
+              💬 humi_999
             </Button>
           </div>
+          <p className="text-xs text-muted-foreground">
+            ©All Rights reserved by 2025 Humi.HUMI developed Nad
+          </p>
         </div>
       </div>
 
