@@ -5,9 +5,8 @@ import { Leaderboard } from '@/components/game/Leaderboard';
 import { GameNarrator } from '@/components/game/GameNarrator';
 import { NavBar } from '@/components/NavBar';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import synthwaveBg from '@/assets/synthwave-bg.jpg';
 
 const Index = () => {
   const [gameEvents, setGameEvents] = useState<Array<{
@@ -27,111 +26,129 @@ const Index = () => {
   };
 
   return (
-    <div 
-      className="min-h-screen bg-background relative overflow-hidden"
-      style={{
-        backgroundImage: `url(${synthwaveBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
-    >
-      {/* Overlay for better contrast */}
-      <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-      
-      {/* Navigation */}
-      <NavBar />
-      
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <p className="text-xl text-neon-cyan mb-2 animate-float">
-            ⚡ Welcome to the MONad Multiverse ⚡
-          </p>
-          <div className="flex justify-center gap-4 mb-6">
-            <Badge variant="outline" className="border-neon-pink text-neon-pink">
-              🚀 Ultra-Fast Monad Chain
-            </Badge>
-            <Badge variant="outline" className="border-electric-blue text-electric-blue">
-              💎 Collect MON Tokens
-            </Badge>
-            <Badge variant="outline" className="border-neon-purple text-neon-purple">
-              🏆 On-Chain Leaderboard
-            </Badge>
-          </div>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+      <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background/80">
+        <NavBar />
+        
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid lg:grid-cols-5 gap-8 items-start">
+            {/* Main Game Area */}
+            <div className="lg:col-span-3 space-y-6">
+              <div className="text-center">
+                <h1 className="text-5xl font-bold bg-gradient-to-r from-game-neon-pink via-game-neon-purple to-game-neon-cyan bg-clip-text text-transparent mb-4">
+                  Gas Dodger
+                </h1>
+                <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                  Navigate the high-speed Monad blockchain while dodging expensive gas fees! 
+                  Collect MON tokens and climb the leaderboards in this retro arcade experience.
+                </p>
+                <Badge className="bg-game-neon-purple/20 text-game-neon-purple border-game-neon-purple/30">
+                  🚀 Built on Monad Chain - Ultra Fast Gaming
+                </Badge>
+              </div>
 
-        {/* Game Area */}
-        <div className="flex flex-col lg:flex-row gap-8 items-start justify-center">
-          {/* Main Game */}
-          <div className="flex flex-col items-center gap-6">
-            <GameCanvas />
-            
-            {/* Game Controls */}
-            <div className="flex gap-4 flex-wrap justify-center">
-              <Button 
-                variant="neon" 
-                size="lg"
-                onClick={() => setShowStats(!showStats)}
-              >
-                📊 Stats
-              </Button>
+              <GameCanvas />
+            </div>
+
+            {/* Side Panel */}
+            <div className="lg:col-span-2 space-y-6">
+              <div className="flex gap-2 mb-4">
+                <Button
+                  variant={showStats ? "default" : "outline"}
+                  onClick={() => setShowStats(true)}
+                  className={showStats 
+                    ? "bg-game-neon-cyan/20 text-game-neon-cyan border-game-neon-cyan/30" 
+                    : "border-game-neon-cyan/30 text-game-neon-cyan hover:bg-game-neon-cyan/10"
+                  }
+                >
+                  📊 Stats
+                </Button>
+                <Button
+                  variant={!showStats ? "default" : "outline"}
+                  onClick={() => setShowStats(false)}
+                  className={!showStats 
+                    ? "bg-game-neon-pink/20 text-game-neon-pink border-game-neon-pink/30" 
+                    : "border-game-neon-pink/30 text-game-neon-pink hover:bg-game-neon-pink/10"
+                  }
+                >
+                  🏆 Leaderboard
+                </Button>
+              </div>
+
+              {showStats ? (
+                <GameStats stats={playerStats} />
+              ) : (
+                <Leaderboard />
+              )}
             </div>
           </div>
 
-          {/* Side Panel */}
-          <div className="flex flex-col gap-6 w-full lg:w-96">
-            {showStats ? (
-              <GameStats stats={playerStats} />
-            ) : (
-              <Leaderboard />
-            )}
-            
-            {/* Game Info */}
-            <Card className="p-6 bg-card/50 backdrop-blur border-neon-cyan">
-              <h3 className="text-lg font-bold text-neon-cyan mb-4">
-                🎮 How to Play
-              </h3>
-              <div className="space-y-3 text-sm">
-                <div className="flex items-center gap-2">
-                  <span className="text-neon-pink">⛽</span>
-                  <span>Dodge falling gas fee bombs</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-neon-cyan">💎</span>
-                  <span>Collect MON tokens for points</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-electric-blue">🚀</span>
-                  <span>Survive as long as possible</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-neon-purple">🏆</span>
-                  <span>Climb the on-chain leaderboard</span>
-                </div>
-              </div>
+          {/* Game Info Section */}
+          <div className="grid md:grid-cols-2 gap-8 mt-16">
+            {/* How to Play */}
+            <Card className="border-game-neon-cyan/30 bg-card/50 backdrop-blur">
+              <CardHeader>
+                <CardTitle className="text-game-neon-cyan flex items-center gap-2">
+                  🕹️ How to Play
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-neon-pink">⌨️</span>
+                    Use arrow keys or A/D to move your cute hedgehog
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-neon-pink">⛽</span>
+                    Dodge red gas fee bombs to preserve your lives
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-neon-pink">💎</span>
+                    Collect cyan MON tokens for extra points
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-neon-pink">📱</span>
+                    Mobile friendly - drag to move on touch devices
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-neon-pink">🎵</span>
+                    Enjoy synthwave music while you play
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
 
-            {/* Crypto Education */}
-            <Card className="p-6 bg-card/50 backdrop-blur border-game-warning">
-              <h3 className="text-lg font-bold text-game-warning mb-4">
-                💡 DeFi Facts
-              </h3>
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <p>
-                  <strong className="text-neon-pink">Monad</strong> uses parallel execution 
-                  to process 10,000+ transactions per second!
-                </p>
-                <p>
-                  <strong className="text-neon-cyan">Gas fees</strong> on Ethereum 
-                  once reached $200+ per transaction during peak congestion.
-                </p>
-                <p>
-                  <strong className="text-electric-blue">MEV bots</strong> can 
-                  front-run transactions in milliseconds, stealing profits.
-                </p>
-              </div>
+            {/* Monad Facts */}
+            <Card className="border-game-electric-blue/30 bg-card/50 backdrop-blur">
+              <CardHeader>
+                <CardTitle className="text-game-electric-blue flex items-center gap-2">
+                  ⚡ Why Monad?
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-electric-blue">🚀</span>
+                    10,000+ TPS with parallel execution engine
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-electric-blue">💰</span>
+                    Ultra-low gas fees make gaming affordable
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-electric-blue">🔗</span>
+                    Full EVM compatibility for seamless migration
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-electric-blue">⚡</span>
+                    Instant finality for real-time gaming
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <span className="text-game-electric-blue">🌐</span>
+                    Next-gen blockchain built for mass adoption
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
           </div>
         </div>
@@ -171,12 +188,12 @@ const Index = () => {
             ©All Rights reserved by 2025 Humi.HUMI developed Nad
           </p>
         </div>
-      </div>
+        </div>
 
-      {/* AI Narrator */}
-      <GameNarrator gameEvents={gameEvents} />
-    </div>
-  );
-};
+        {/* AI Narrator */}
+        <GameNarrator gameEvents={gameEvents} />
+      </div>
+    );
+  };
 
 export default Index;
