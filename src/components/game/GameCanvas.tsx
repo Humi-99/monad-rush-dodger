@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { toast } from "sonner";
 import { useAudio } from '@/hooks/useAudio';
-import { useAuth } from '@/contexts/AuthContext';
+import { useWallet } from '@/contexts/WalletContext';
 import { supabase } from '@/integrations/supabase/client';
 
 interface GameObject {
@@ -32,7 +32,7 @@ export const GameCanvas = () => {
     startX: 0,
     playerStartX: 0
   });
-  const { user } = useAuth();
+  const { account } = useWallet();
 
   // Audio hooks
   const bipSound = useAudio('/sounds/bip.wav', { volume: 0.7 });
@@ -271,11 +271,11 @@ export const GameCanvas = () => {
 
   // Save game score to database
   const saveGameScore = async (finalScore: number, monTokens: number, level: number) => {
-    if (!user) return;
+    if (!account) return;
     
     try {
       await supabase.from('game_scores').insert({
-        user_id: user.id,
+        user_id: account,
         score: finalScore,
         mon_tokens: monTokens,
         level_reached: level
@@ -287,8 +287,8 @@ export const GameCanvas = () => {
 
   // Restart game
   const restartGame = () => {
-    // Save score if user is logged in and game was played
-    if (user && gameState.score > 0) {
+    // Save score if wallet is connected and game was played
+    if (account && gameState.score > 0) {
       saveGameScore(gameState.score, gameState.monTokens, gameState.level);
     }
 
