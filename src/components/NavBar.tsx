@@ -1,10 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useWallet } from '@/contexts/WalletContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const NavBar = () => {
-  const { account, isConnected, connecting, connectWallet, disconnectWallet, balance } = useWallet();
+  const { account, isConnected, balance } = useWallet();
+  const { signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -61,9 +63,9 @@ export const NavBar = () => {
             </Button>
           </div>
 
-          {/* Wallet Connection */}
+          {/* User Info */}
           <div className="flex items-center gap-4">
-            {isConnected ? (
+            {isConnected && (
               <div className="flex items-center gap-3">
                 <div className="text-right text-sm">
                   <div className="text-neon-cyan font-mono">
@@ -75,18 +77,10 @@ export const NavBar = () => {
                     </div>
                   )}
                 </div>
-                <Button variant="cyber" size="sm" onClick={disconnectWallet}>
-                  🚪 Disconnect
+                <Button variant="cyber" size="sm" onClick={signOut}>
+                  🚪 Sign Out
                 </Button>
               </div>
-            ) : (
-              <Button 
-                variant="neon" 
-                onClick={connectWallet}
-                disabled={connecting}
-              >
-                {connecting ? '🔄 Connecting...' : '🦊 Connect MetaMask'}
-              </Button>
             )}
           </div>
         </div>
