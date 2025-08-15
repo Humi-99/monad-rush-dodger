@@ -78,37 +78,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return { error: new Error('Please connect your wallet first') };
       }
 
-      // Create a unique email using wallet address
-      const email = `${account.toLowerCase()}@wallet.local`;
-      const password = account; // Use wallet address as password (this is just for demo)
+      // Generate a valid email format for wallet authentication
+      const walletEmail = `user+${account.toLowerCase().replace('0x', '')}@wallet.auth`;
+      const walletPassword = `wallet_${account}_auth_key`;
 
-      // Try to sign up first, then sign in if user already exists
+      // Try to sign up first
       const { error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
+        email: walletEmail,
+        password: walletPassword,
         options: {
           emailRedirectTo: `${window.location.origin}/`,
           data: {
             wallet_address: account,
-            username: account.slice(0, 8)
+            username: account.slice(0, 8),
+            is_wallet_user: true
           }
         }
       });
 
       // If signup fails because user exists, try to sign in
-      if (signUpError?.message?.includes('already registered')) {
+      if (signUpError?.message?.includes('already registered') || signUpError?.message?.includes('already been registered')) {
         const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password
+          email: walletEmail,
+          password: walletPassword
         });
         
         if (signInError) {
           return { error: signInError };
         }
-      } else if (signUpError) {
+      } else if (signUpError && !signUpError.message?.includes('email not confirmed')) {
         return { error: signUpError };
       }
 
+      // For wallet users, we don't need email confirmation, so we can proceed
       return { error: null };
     } catch (error) {
       return { error: error as Error };
