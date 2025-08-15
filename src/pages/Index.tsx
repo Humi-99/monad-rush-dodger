@@ -26,8 +26,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background/80">
-      <NavBar />
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
+      <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background/80">
+        <NavBar />
         
         <div className="container mx-auto px-4 py-12">
           <div className="grid lg:grid-cols-5 gap-8 items-start">
@@ -187,11 +188,12 @@ const Index = () => {
             ©All Rights reserved by 2025 Humi.HUMI developed Nad
           </p>
         </div>
+        </div>
 
         {/* AI Narrator */}
         <GameNarrator gameEvents={gameEvents} />
-    </div>
-  );
-};
+      </div>
+    );
+  };
 
 export default Index;
